@@ -358,10 +358,23 @@ export default {
       }
       let dateStar = minDate[2] ? parseInt(minDate[2]) : 1
       let dateEnd = maxDate[2] ? parseInt(maxDate[2]) : maxnum
-      if (
+      if (y === yearEnd && m === monthEnd && m !== monthStar) {
+	  		for (let d = 1; d <= dateEnd; d++) {
+	       let dtext = d < 10 ? `0${d}` : d
+	       datearr.push(`${dtext}日`)
+	     }
+	   }
+	   else if (y === yearStar && m === monthStar && m !== monthEnd) {
+	     for (let d = dateStar; d <= maxnum; d++) {
+	       let dtext = d < 10 ? `0${d}` : d
+	       datearr.push(`${dtext}日`)
+	     }
+	   }
+	        
+      else if (
         (y !== yearEnd && y !== yearStar) ||
         (y === yearStar && m !== monthStar) ||
-        (y === yearEnd && m !== monthEnd) ||
+        (y === yearEnd && m !== monthEnd && m !== monthStar) ||
         (yearStar === yearEnd && m !== monthStar && m !== monthEnd)
       ) {
         for (let d = 1; d <= maxnum; d++) {
@@ -369,20 +382,9 @@ export default {
           datearr.push(`${dtext}日`)
         }
       }
-      if (y === yearStar && m === monthStar && m !== monthEnd) {
-        for (let d = dateStar; d <= maxnum; d++) {
-          let dtext = d < 10 ? `0${d}` : d
-          datearr.push(`${dtext}日`)
-        }
-      }
-      if (y === yearEnd && m === monthEnd && m !== monthStar) {
-        for (let d = 1; d <= dateEnd; d++) {
-          let dtext = d < 10 ? `0${d}` : d
-          datearr.push(`${dtext}日`)
-        }
-      }
+      
       // 当开始时间和结束时间的年月都相同时 判断最小日期和最大日期
-      if (
+      else if (
         y === yearEnd &&
         m === monthEnd &&
         y === yearStar &&
